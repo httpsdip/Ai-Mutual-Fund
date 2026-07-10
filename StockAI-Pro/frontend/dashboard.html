@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StockAI Pro Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 20 L8 14 L12 17 L16 9 L20 12 L24 6" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="24" cy="6" r="2.5" fill="#00f5a0"/>
+              <defs>
+                <linearGradient id="g1" x1="4" y1="20" x2="24" y2="6" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00f5a0"/><stop offset="1" stop-color="#00d9f5"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">StockAI <span class="logo-accent">Pro</span></span>
+        </a>
+        <div class="nav-actions">
+          <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+          <a href="index.html" class="btn-outline">Back Home</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="section" style="padding-top: 120px;">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Portfolio <span class="gradient-text">Dashboard</span></h2>
+          <p class="section-subtitle">A focused view of your watchlist, AI picks, and watch metrics.</p>
+        </div>
+
+        <div class="indices-grid">
+          <div class="feature-card">
+            <h3>Watchlist</h3>
+            <p>Track your shortlisted stocks and get instant AI signals.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Risk Score</h3>
+            <p>Balanced outlook with sector diversification guidance.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Daily Insights</h3>
+            <p>Momentum, support-resistance, and news sentiment included.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
