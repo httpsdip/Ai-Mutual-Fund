@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in — StockAI Pro</title>
+  <meta name="description" content="Sign in to StockAI Pro and access AI-powered stock market analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8eaf2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* ── outer wrapper ── */
+    .wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 980px;
+      min-height: 540px;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.10);
+    }
+
+    /* ════════════════════════
+       LEFT PANEL
+    ════════════════════════ */
+    .left {
+      flex: 1 1 50%;
+      background: linear-gradient(140deg, #f0fdf8 0%, #e8f4ff 60%, #f5f0ff 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 2.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle decorative blob */
+    .left::before {
+      content: '';
+      position: absolute;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
+      top: -60px; right: -80px;
+      border-radius: 50%;
+    }
+    .left::after {
+      content: '';
+      position: absolute;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(52,211,153,0.14) 0%, transparent 70%);
+      bottom: 80px; left: -60px;
+      border-radius: 50%;
+    }
+
+    /* logo */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+    .brand-logo-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.3px;
+    }
+    .brand-logo-text span { color: #2563eb; }
+
+    /* floating chart card */
+    .chart-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chart-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.4rem 1.5rem 1.1rem;
+      width: 260px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chart-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.15rem;
+    }
+    .chart-card-label { font-size: 0.72rem; color: #6b7280; font-weight: 500; }
+    .chart-card-dots { color: #9ca3af; font-size: 1.1rem; letter-spacing: 2px; line-height: 1; }
+    .chart-card-value { font-size: 1.6rem; font-weight: 800; color: #111827; margin-bottom: 0.9rem; letter-spacing: -1px; }
+
+    #miniChart { display: block; width: 100%; height: 90px; }
+
+    .chart-legend {
+      display: flex;
+      gap: 14px;
+      margin-top: 0.5rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; color: #9ca3af; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* tagline */
+    .tagline {
+      text-align: center;
+      padding: 0 1rem 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .tagline p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════
+       RIGHT PANEL
+    ════════════════════════ */
+    .right {
+      flex: 1 1 50%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 3rem;
+      position: relative;
+    }
+
+    .right-top {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .signup-link {
+      font-size: 0.82rem;
+      color: #374151;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    .signup-link:hover { color: #2563eb; }
+    .signup-link svg { transition: transform 0.2s; }
+    .signup-link:hover svg { transform: translateX(3px); }
+
+    .form-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.8px;
+      margin-bottom: 2rem;
+    }
+
+    /* field */
+    .field { margin-bottom: 1rem; }
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.4rem;
+      font-weight: 400;
+    }
+
+    .input-wrap { position: relative; }
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.65rem 2.5rem 0.65rem 0.85rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input::placeholder { color: #9ca3af; }
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .input-err { border-color: #ef4444 !important; }
+    .input-err:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important; }
+
+    .toggle-pw {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #9ca3af; display: flex; padding: 2px;
+      transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: #374151; }
+
+    .error-msg {
+      font-size: 0.72rem;
+      color: #ef4444;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    /* submit button */
+    .btn-login {
+      width: 100%;
+      padding: 0.72rem 1rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.4rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-login:hover  { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.3); }
+    .btn-login:active { transform: translateY(0); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-login svg { transition: transform 0.2s; }
+    .btn-login:hover svg { transform: translateX(3px); }
+
+    /* spinner */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* forgot */
+    .forgot-row {
+      text-align: center;
+      margin-top: 1.1rem;
+      font-size: 0.82rem;
+      color: #6b7280;
+    }
+    .forgot-row a { color: #111827; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+    .forgot-row a:hover { color: #2563eb; }
+
+    /* success overlay */
+    .success-overlay {
+      position: absolute; inset: 0;
+      background: #fff;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      border-radius: 0 20px 20px 0;
+    }
+    .success-icon {
+      width: 60px; height: 60px;
+      background: #2563eb;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      animation: popIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .success-title { font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .success-sub   { font-size: 0.82rem; color: #6b7280; }
+
+    @media (max-width: 680px) {
+      body { padding: 1rem; }
+      .wrapper { flex-direction: column; min-height: auto; }
+      .left { padding: 1.75rem; }
+      .right { padding: 2rem 1.75rem; }
+      h1 { font-size: 1.6rem; }
+      .success-overlay { border-radius: 0 0 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="left">
+
+    <a href="index.html" class="brand-logo">
+      <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+        <path d="M4 20 L8 14 L12 17 L16 9 L20 12 L24 6" stroke="url(#lg1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="6" r="2.5" fill="#10b981"/>
+        <defs>
+          <linearGradient id="lg1" x1="4" y1="20" x2="24" y2="6" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#10b981"/><stop offset="1" stop-color="#2563eb"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-logo-text">StockAI <span>Pro</span></span>
+    </a>
+
+    <div class="chart-area">
+      <div class="chart-card">
+        <div class="chart-card-top">
+          <span class="chart-card-label">NIFTY 50 — Today</span>
+          <span class="chart-card-dots">···</span>
+        </div>
+        <div class="chart-card-value">24,832</div>
+        <canvas id="miniChart"></canvas>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>AI Target</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>Actual</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tagline">
+      <p>Can't wait to show you what's new.<br><strong>Sign in and see for yourself!</strong></p>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+
+    <div class="right-top">
+      <a href="#" class="signup-link">
+        Sign up
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="form-section">
+      <h1>Log in</h1>
+
+      <form id="loginForm" novalidate>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <div class="input-wrap">
+            <input type="email" id="email" placeholder="Email address" autocomplete="email" />
+          </div>
+          <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+        </div>
+
+        <div class="field">
+          <label for="password">Enter your password</label>
+          <div class="input-wrap">
+            <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+            <button type="button" class="toggle-pw" id="togglePw" aria-label="Show or hide password">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <span class="error-msg" id="pwError">Password must be at least 6 characters.</span>
+        </div>
+
+        <button type="submit" class="btn-login" id="submitBtn">
+          <span id="btnText">Log in</span>
+          <svg id="btnArrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+          <div class="spinner" id="btnSpinner"></div>
+        </button>
+
+      </form>
+
+      <p class="forgot-row">Forgot your password? <a href="#">Reset now</a></p>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <p class="success-title">Welcome back!</p>
+      <p class="success-sub">Redirecting to your dashboard…</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* ── Mini canvas chart ── */
+(function () {
+  const canvas = document.getElementById('miniChart');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const W   = canvas.parentElement.clientWidth - 48 || 222;
+  const H   = 90;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const actual = [0.18,0.22,0.20,0.35,0.30,0.42,0.50,0.55,0.60,0.72,0.78,0.85];
+  const target = [0.22,0.28,0.32,0.40,0.38,0.50,0.54,0.62,0.68,0.75,0.82,0.90];
+  const pad    = { t:6, b:18, l:28, r:6 };
+  const cW     = W - pad.l - pad.r;
+  const cH     = H - pad.t - pad.b;
+
+  function xPos(i, arr) { return pad.l + (i / (arr.length - 1)) * cW; }
+  function yPos(v)       { return pad.t + (1 - v) * cH; }
+
+  ctx.font = '9px Inter,sans-serif';
+  ctx.fillStyle = '#d1d5db';
+  ['100%','80','60','40','20','0'].forEach((lbl, i) => {
+    const y = pad.t + (i / 5) * cH;
+    ctx.fillText(lbl, 0, y + 3);
+    ctx.beginPath();
+    ctx.strokeStyle = '#f3f4f6';
+    ctx.lineWidth = 1;
+    ctx.moveTo(pad.l, y);
+    ctx.lineTo(pad.l + cW, y);
+    ctx.stroke();
+  });
+
+  function drawFill(pts, r, g, b) {
+    ctx.beginPath();
+    pts.forEach((v, i) => {
+      const x = xPos(i, pts), y = yPos(v);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.lineTo(xPos(pts.length - 1, pts), pad.t + cH);
+    ctx.lineTo(pad.l, pad.t + cH);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
+    grad.addColorStop(0, `rgba(${r},${g},${b},0.18)`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+
+  function drawLine(pts, color) {
+    ctx.beginPath();
+    pts.forEach((v, i) => {
+      const x = xPos(i, pts), y = yPos(v);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = color;
+    ctx.lineWidth   = 2;
+    ctx.stroke();
+  }
+
+  drawFill(actual, 37, 99, 235);
+  drawFill(target, 16, 185, 129);
+  drawLine(actual, '#2563eb');
+  drawLine(target, '#10b981');
+})();
+
+/* ── Password toggle ── */
+const pwInput = document.getElementById('password');
+const eyeIcon = document.getElementById('eyeIcon');
+document.getElementById('togglePw').addEventListener('click', () => {
+  const v = pwInput.type === 'text';
+  pwInput.type = v ? 'password' : 'text';
+  eyeIcon.innerHTML = v
+    ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+    : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+});
+
+/* ── Form ── */
+const emailEl  = document.getElementById('email');
+const emailErr = document.getElementById('emailError');
+const pwErr    = document.getElementById('pwError');
+const submitBtn = document.getElementById('submitBtn');
+const btnText   = document.getElementById('btnText');
+const btnArrow  = document.getElementById('btnArrow');
+const spinner   = document.getElementById('btnSpinner');
+
+function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function showErr(msg, inp, show) {
+  msg.style.display = show ? 'block' : 'none';
+  inp.classList.toggle('input-err', show);
+}
+
+emailEl.addEventListener('input', () => showErr(emailErr, emailEl, false));
+pwInput.addEventListener('input', () => showErr(pwErr, pwInput, false));
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  let ok = true;
+  if (!isEmail(emailEl.value.trim())) { showErr(emailErr, emailEl, true); ok = false; }
+  if (pwInput.value.length < 6)       { showErr(pwErr, pwInput, true);    ok = false; }
+  if (!ok) return;
+
+  submitBtn.disabled     = true;
+  btnText.textContent    = 'Signing in\u2026';
+  btnArrow.style.display = 'none';
+  spinner.style.display  = 'block';
+
+  await new Promise(r => setTimeout(r, 1600));
+  const ov = document.getElementById('successOverlay');
+  ov.style.display = 'flex';
+  setTimeout(() => { window.location.href = 'desboard.html'; }, 1800);
+});
+</script>
+</body>
+</html>
